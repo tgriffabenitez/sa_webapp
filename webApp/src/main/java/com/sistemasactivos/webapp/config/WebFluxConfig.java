@@ -18,26 +18,15 @@ import reactor.netty.http.client.HttpClient;
 
 @Configuration
 public class WebFluxConfig implements WebFluxConfigurer {
-    Logger logger = LoggerFactory.getLogger(WebFluxConfig.class);
 
     @Bean
-    @Qualifier("webClientPersona") // Le pongo un nombre para poder inyectarlo en el servicio
+    @Qualifier("webClientPersona")
     public WebClient getWebClientPersona() {
-        // url del microservicio persona
-        return createWebClient("http://localhost:8082", "admin1", "123");
+        return createWebClient();
     }
 
-    @Bean
-    @Qualifier("webClientCategoria") // Le pongo un nombre para poder inyectarlo en el servicio
-    public WebClient getWebClientCategoria() {
-        // url del microservicio categoria
-        return createWebClient("http://localhost:8083/api/v1", "admin2", "321");
-    }
 
-    /**
-     * Crea un cliente web para consumir los microservicios
-     */
-    private WebClient createWebClient(String baseUrl, String username, String password) {
+    private WebClient createWebClient() {
         HttpClient httpClient = HttpClient.create()
                 .tcpConfiguration(client ->
                         client.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000)
@@ -48,9 +37,8 @@ public class WebFluxConfig implements WebFluxConfigurer {
         ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient.wiretap(true));
 
         return WebClient.builder()
-                .baseUrl(baseUrl) // url del microservicio a usar
+                .baseUrl("http://localhost:8082") // url del bff a usar
                 .clientConnector(connector)
-                .defaultHeaders(httpHeaders -> httpHeaders.setBasicAuth(username, password)) // credenciales de acceso a la api
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
     }
