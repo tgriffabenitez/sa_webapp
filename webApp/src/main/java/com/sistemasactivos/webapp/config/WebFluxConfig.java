@@ -20,11 +20,10 @@ import reactor.netty.http.client.HttpClient;
 public class WebFluxConfig implements WebFluxConfigurer {
 
     @Bean
-    @Qualifier("webClientPersona")
-    public WebClient getWebClientPersona() {
+    @Qualifier("webClientBff")
+    public WebClient getWebClientBff() {
         return createWebClient();
     }
-
 
     private WebClient createWebClient() {
         HttpClient httpClient = HttpClient.create()

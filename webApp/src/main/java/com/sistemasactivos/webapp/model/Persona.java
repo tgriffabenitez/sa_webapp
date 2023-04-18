@@ -10,8 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Persona {
-    private static final long serialVersionUID = 1L;
-
     private Long id;
     private String nombre;
     private String apellido;

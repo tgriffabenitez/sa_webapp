@@ -12,9 +12,8 @@ import reactor.core.publisher.Mono;
 public class PersonaService {
 
     @Autowired
-    @Qualifier("webClientPersona")
+    @Qualifier("webClientBff")
     private WebClient webClientPersona;
-
 
     public Flux<Persona> findAll() {
         return webClientPersona.get()
