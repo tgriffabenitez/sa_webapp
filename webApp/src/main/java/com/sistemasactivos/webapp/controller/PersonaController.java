@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import reactor.core.publisher.Flux;
 
 
@@ -19,6 +20,13 @@ public class PersonaController {
     public String obtenerPersonas(Model modelo) {
         Flux<Persona> personas = personaService.findAll();
         modelo.addAttribute("persona", personas.collectList().block());
+        return "persona";
+    }
+
+    @GetMapping("/persona/{id}")
+    public String obtenerPersona(Model modelo, @PathVariable Long id) {
+        Persona persona = personaService.findById(id).block();
+        modelo.addAttribute("persona", persona);
         return "persona";
     }
 }
