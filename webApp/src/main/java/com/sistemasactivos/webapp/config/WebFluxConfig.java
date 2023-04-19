@@ -3,9 +3,6 @@ package com.sistemasactivos.webapp.config;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -20,12 +17,7 @@ import reactor.netty.http.client.HttpClient;
 public class WebFluxConfig implements WebFluxConfigurer {
 
     @Bean
-    @Qualifier("webClientBff")
-    public WebClient getWebClientBff() {
-        return createWebClient();
-    }
-
-    private WebClient createWebClient() {
+    public WebClient createWebClient() {
         HttpClient httpClient = HttpClient.create()
                 .tcpConfiguration(client ->
                         client.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000)

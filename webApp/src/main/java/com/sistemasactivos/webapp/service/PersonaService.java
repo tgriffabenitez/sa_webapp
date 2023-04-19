@@ -2,7 +2,6 @@ package com.sistemasactivos.webapp.service;
 
 import com.sistemasactivos.webapp.model.Persona;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -12,7 +11,6 @@ import reactor.core.publisher.Mono;
 public class PersonaService {
 
     @Autowired
-    @Qualifier("webClientBff")
     private WebClient webClientPersona;
 
     public Flux<Persona> findAll() {
