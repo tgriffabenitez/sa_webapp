@@ -20,7 +20,12 @@ import reactor.netty.http.client.HttpClient;
 public class WebFluxConfig implements WebFluxConfigurer {
 
     @Bean
-    public WebClient createWebClient() {
+    @Qualifier("webClientBff")
+    public WebClient getWebClientBff() {
+        return createWebClient();
+    }
+
+    private WebClient createWebClient() {
         HttpClient httpClient = HttpClient.create()
                 .tcpConfiguration(client ->
                         client.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000)
